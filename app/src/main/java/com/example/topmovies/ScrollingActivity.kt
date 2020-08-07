@@ -7,6 +7,10 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.example.topmovies.network.Apifactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ScrollingActivity : AppCompatActivity() {
 
@@ -15,10 +19,11 @@ class ScrollingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_scrolling)
         setSupportActionBar(findViewById(R.id.toolbar))
         findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            var result = Apifactory.tmdbAPI.getMovies(1).await().body()
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
