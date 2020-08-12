@@ -17,12 +17,12 @@ import kotlinx.android.synthetic.main.activity_scrolling.*
 import kotlinx.android.synthetic.main.content_scrolling.*
 import java.util.*
 
-
 class ScrollingActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MoviesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scrolling)
 
@@ -67,12 +67,12 @@ class ScrollingActivity : AppCompatActivity() {
         lateinit var scheduledDate: GregorianCalendar
 
         DatePickerDialog(
-            this, DatePickerDialog.OnDateSetListener { dialog, year, monthOfYear, dayOfMonth ->
+            this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
 
                 scheduledDate = GregorianCalendar(year, monthOfYear, dayOfMonth)
 
-                val tpd = TimePickerDialog(
-                    this, TimePickerDialog.OnTimeSetListener { timePicker, hours, minutes ->
+                TimePickerDialog(
+                    this, TimePickerDialog.OnTimeSetListener { _, hours, minutes ->
                         scheduledDate.set(Calendar.HOUR_OF_DAY, hours)
                         scheduledDate.set(Calendar.MINUTE, minutes)
 
@@ -85,8 +85,7 @@ class ScrollingActivity : AppCompatActivity() {
                     calendar.get(Calendar.HOUR_OF_DAY),
                     calendar.get(Calendar.MINUTE),
                     true
-                )
-                tpd.show()
+                ).show()
             }, calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)

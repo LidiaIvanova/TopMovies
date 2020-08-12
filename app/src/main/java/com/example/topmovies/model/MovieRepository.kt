@@ -5,11 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.topmovies.model.db.DatabaseFactory
 import com.example.topmovies.model.domain.Movie
-import com.example.topmovies.model.network.APIFactory
+import com.example.topmovies.model.network.TMDBAPIFactory
 
 class MovieRepository(context: Context) {
 
-    private val remote = APIFactory.tmdbDataSource
+    private val remote = TMDBAPIFactory.tmdbDataSource
     private val dao = DatabaseFactory.db(context).moviesDao()
     private val state: MutableLiveData<State> = MutableLiveData(State.Loading)
 
@@ -42,11 +42,11 @@ class MovieRepository(context: Context) {
     }
 
     fun getPageSize(): Int {
-        return APIFactory.PAGE_SIZE
+        return TMDBAPIFactory.PAGE_SIZE
     }
 
     fun getFirstPageNumber(): Int {
-        return APIFactory.FIRST_PAGE_NUMBER
+        return TMDBAPIFactory.FIRST_PAGE_NUMBER
     }
 
     fun getState(): LiveData<State> {

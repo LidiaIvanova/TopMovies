@@ -8,7 +8,6 @@ import androidx.lifecycle.Observer
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import androidx.paging.PagedListAdapter
 import com.example.topmovies.model.MovieRepository
 import com.example.topmovies.model.MoviesPageDataSource
 import com.example.topmovies.model.domain.Movie

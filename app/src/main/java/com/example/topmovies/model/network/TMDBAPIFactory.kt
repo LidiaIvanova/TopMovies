@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
-object APIFactory {
+object TMDBAPIFactory {
 
     private const val API_KEY = BuildConfig.TMDB_API_KEY
     private const val API_BASE_URL = "https://api.themoviedb.org/3/"
@@ -23,7 +23,7 @@ object APIFactory {
                 "api_key",
                 API_KEY
             )
-            .addQueryParameter("language", Locale.getDefault().toString())
+            .addQueryParameter("language", Locale.getDefault().toString().replace('_','-'))
             .build()
 
         val newRequest = chain.request()
