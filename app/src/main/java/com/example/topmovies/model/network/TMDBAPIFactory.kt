@@ -23,7 +23,7 @@ object TMDBAPIFactory {
                 "api_key",
                 API_KEY
             )
-            .addQueryParameter("language", Locale.getDefault().toString().replace('_','-'))
+            .addQueryParameter("language", Locale.getDefault().toString().replace('_', '-'))
             .build()
 
         val newRequest = chain.request()

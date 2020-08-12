@@ -57,6 +57,6 @@ class MovieRepository(context: Context) {
         object HasData : State()
         object Loading : State()
         object EndOfList : State()
-        class Error(val message: String): State()
+        class Error(val message: String) : State()
     }
 }
