@@ -5,4 +5,10 @@
     <string name="movies_list_is_empty">Список фильмов пуст. Возможно, отсутствует подключение к Интернету</string>
     <string name="try_again">Еще раз</string>
     <string name="logo">Логотип</string>
+    <string name="notification_scheduled">Напоминание добавлено</string>
+    <string name="channel_name">TopMovies</string>
+    <string name="channel_description">Напоминания о фильмах</string>
+    <string name="notification_title">TopMovies напоминание</string>
+    <string name="notification_short_text">"Вы хотели посмотреть фильм %1$s"</string>
+    <string name="notification_long_text">Вы хотели посмотреть фильм %1$s: %2$s</string>
 </resources>

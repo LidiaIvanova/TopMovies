@@ -9,8 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.topmovies.databinding.ListItemMovieBinding
 import com.example.topmovies.model.domain.Movie
 
-class MoviesAdapter(val onClick: (position: Int) -> Unit) :
+class MoviesAdapter() :
     PagedListAdapter<Movie, MoviesAdapter.ViewHolder>(DiffCallback()) {
+
+    lateinit var onClick: (movie: Movie) -> Unit
+
+    fun setOnButtonClick(onClick: (movie: Movie) -> Unit) {
+        this.onClick = onClick
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -25,7 +31,7 @@ class MoviesAdapter(val onClick: (position: Int) -> Unit) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = getItem(position)
         movie?.let {
-            holder.bind(View.OnClickListener { onClick(position) }, it)
+            holder.bind(View.OnClickListener { onClick(getItem(position) as Movie) }, it)
         }
     }
 

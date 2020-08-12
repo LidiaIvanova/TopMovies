@@ -3,6 +3,7 @@
     package="com.example.topmovies">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
@@ -12,6 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver
+            android:name=".model.ScheduleBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.topmovies.MOVIE_ALARM" />
+            </intent-filter>
+        </receiver>
         <activity
             android:name=".ui.ScrollingActivity"
             android:label="@string/app_name"

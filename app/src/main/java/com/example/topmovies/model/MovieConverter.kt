@@ -31,7 +31,7 @@ internal fun List<MovieEntity>.toDomain() = this.map {
     )
 }
 
-private fun stringDateToLong(string: String?): Long {
+fun stringDateToLong(string: String?): Long {
 
     if (string == null) {
         return 0
@@ -44,9 +44,15 @@ private fun stringDateToLong(string: String?): Long {
     }
 }
 
-private fun longDateToDate(long: Long): Date? {
+fun longDateToDate(long: Long): Date? {
     if (long == 0L)
         return null
     return Date(long)
+}
+
+fun dateToLong(date: Date?): Long {
+    return if (date != null)
+        date.time
+    else 0
 }
 

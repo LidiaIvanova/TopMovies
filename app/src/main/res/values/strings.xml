@@ -6,4 +6,10 @@
     <string name="movies_list_is_empty">Movies list is empty. May be you have not Internet connection.</string>
     <string name="try_again">Try again</string>
     <string name="logo">Logo</string>
+    <string name="notification_scheduled">Notification was added successfully</string>
+    <string name="channel_name">TopMovies scheduling channel</string>
+    <string name="channel_description">Channel for notifications about scheduled films</string>
+    <string name="notification_title">TopMovies notification</string>
+    <string name="notification_short_text">"You wanted to watch the %1$s movie."</string>
+    <string name="notification_long_text">You wanted to watch the %1$s movie: %2$s</string>
 </resources>

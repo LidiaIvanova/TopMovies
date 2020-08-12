@@ -15,7 +15,7 @@ import com.example.topmovies.model.domain.Movie
 
 class MoviesViewModel(app: Application) : AndroidViewModel(app) {
 
-    private var adapter: PagedListAdapter<Movie, MoviesAdapter.ViewHolder>
+    private var adapter: MoviesAdapter
     private var repository = MovieRepository(getApplication())
     private var pagedList: LiveData<PagedList<Movie>>
     private val pagedListObserver: Observer<PagedList<Movie>>
@@ -33,9 +33,7 @@ class MoviesViewModel(app: Application) : AndroidViewModel(app) {
         }
         repository.getState().observeForever(repositoryStateObserver)
 
-        adapter = MoviesAdapter {
-            onMovieScheduleButtonClick()
-        }
+        adapter = MoviesAdapter()
 
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
@@ -57,7 +55,7 @@ class MoviesViewModel(app: Application) : AndroidViewModel(app) {
         //TODO
     }
 
-    fun getMoviePagedAdapter(): PagedListAdapter<Movie, MoviesAdapter.ViewHolder> {
+    fun getMoviePagedAdapter(): MoviesAdapter {
         return adapter
     }
 

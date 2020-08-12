@@ -1,5 +1,8 @@
 package com.example.topmovies.ui
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
+import java.util.Calendar
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -7,9 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.topmovies.R
+import com.example.topmovies.model.ScheduleAlarmManager
+import com.example.topmovies.model.domain.Movie
 import com.example.topmovies.viewmodel.MoviesViewModel
 import kotlinx.android.synthetic.main.activity_scrolling.*
 import kotlinx.android.synthetic.main.content_scrolling.*
+import java.util.*
 
 
 class ScrollingActivity : AppCompatActivity() {
@@ -22,6 +28,10 @@ class ScrollingActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
 
+        val adapter = viewModel.getMoviePagedAdapter()
+        adapter.setOnButtonClick {
+           showDatePicker(it)
+        }
         moviesRecyclerView.adapter = viewModel.getMoviePagedAdapter()
 
         subscribeUI()
@@ -49,5 +59,32 @@ class ScrollingActivity : AppCompatActivity() {
 
     private fun showMessage(message: String) {
         Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun showDatePicker(movie: Movie) {
+        val calendar = GregorianCalendar()
+
+        lateinit var scheduledDate: GregorianCalendar
+
+        DatePickerDialog(this, DatePickerDialog.OnDateSetListener { dialog, year, monthOfYear, dayOfMonth ->
+
+                scheduledDate = GregorianCalendar(year, monthOfYear, dayOfMonth)
+
+                val tpd = TimePickerDialog(
+                    this, TimePickerDialog.OnTimeSetListener { timePicker, hours, minutes ->
+                        scheduledDate.set(Calendar.HOUR_OF_DAY, hours)
+                        scheduledDate.set(Calendar.MINUTE, minutes)
+
+                        ScheduleAlarmManager().setSchedule(this, movie, Date(scheduledDate.timeInMillis))
+                    },
+                    calendar.get(Calendar.HOUR_OF_DAY),
+                    calendar.get(Calendar.MINUTE),
+                    true
+                )
+                tpd.show()
+            }, calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ).show()
     }
 }
