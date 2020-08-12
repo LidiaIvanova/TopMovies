@@ -30,7 +30,7 @@ class ScrollingActivity : AppCompatActivity() {
 
         val adapter = viewModel.getMoviePagedAdapter()
         adapter.setOnButtonClick {
-           showDatePicker(it)
+            showDatePicker(it)
         }
         moviesRecyclerView.adapter = viewModel.getMoviePagedAdapter()
 
@@ -66,7 +66,8 @@ class ScrollingActivity : AppCompatActivity() {
 
         lateinit var scheduledDate: GregorianCalendar
 
-        DatePickerDialog(this, DatePickerDialog.OnDateSetListener { dialog, year, monthOfYear, dayOfMonth ->
+        DatePickerDialog(
+            this, DatePickerDialog.OnDateSetListener { dialog, year, monthOfYear, dayOfMonth ->
 
                 scheduledDate = GregorianCalendar(year, monthOfYear, dayOfMonth)
 
@@ -75,7 +76,11 @@ class ScrollingActivity : AppCompatActivity() {
                         scheduledDate.set(Calendar.HOUR_OF_DAY, hours)
                         scheduledDate.set(Calendar.MINUTE, minutes)
 
-                        ScheduleAlarmManager().setSchedule(this, movie, Date(scheduledDate.timeInMillis))
+                        ScheduleAlarmManager().setSchedule(
+                            this,
+                            movie,
+                            Date(scheduledDate.timeInMillis)
+                        )
                     },
                     calendar.get(Calendar.HOUR_OF_DAY),
                     calendar.get(Calendar.MINUTE),

@@ -25,10 +25,21 @@ class ScheduleBroadcastReceiver : BroadcastReceiver() {
                 .Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo)
                 .setContentTitle(context.getString(R.string.notification_title))
-                .setContentText(context.getString(R.string.notification_short_text, currentMovie.title))
+                .setContentText(
+                    context.getString(
+                        R.string.notification_short_text,
+                        currentMovie.title
+                    )
+                )
                 .setStyle(
                     NotificationCompat.BigTextStyle()
-                        .bigText(context.getString(R.string.notification_long_text, currentMovie.title, currentMovie.overview))
+                        .bigText(
+                            context.getString(
+                                R.string.notification_long_text,
+                                currentMovie.title,
+                                currentMovie.overview
+                            )
+                        )
                 )
                 .setVibrate(longArrayOf(500, 500, 500, 500))
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
