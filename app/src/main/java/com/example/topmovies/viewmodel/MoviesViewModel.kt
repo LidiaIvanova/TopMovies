@@ -50,10 +50,6 @@ class MoviesViewModel(app: Application) : AndroidViewModel(app) {
         pagedList.observeForever(pagedListObserver)
     }
 
-    private fun onMovieScheduleButtonClick() {
-        //TODO
-    }
-
     fun getMoviePagedAdapter(): MoviesAdapter {
         return adapter
     }

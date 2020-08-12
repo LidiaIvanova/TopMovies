@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.topmovies.databinding.ListItemMovieBinding
 import com.example.topmovies.model.domain.Movie
 
-class MoviesAdapter() :
+class MoviesAdapter :
     PagedListAdapter<Movie, MoviesAdapter.ViewHolder>(DiffCallback()) {
 
     lateinit var onClick: (movie: Movie) -> Unit
