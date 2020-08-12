@@ -13,6 +13,8 @@ object APIFactory {
     private const val API_KEY = BuildConfig.TMDB_API_KEY
     private const val API_BASE_URL = "https://api.themoviedb.org/3/"
     const val API_IMAGE_PATH = "https://image.tmdb.org/t/p/w220_and_h330_face"
+    const val PAGE_SIZE = 20
+    const val FIRST_PAGE_NUMBER = 1
 
     private val authInterceptor = Interceptor { chain ->
         val newUrl = chain.request().url
@@ -37,7 +39,7 @@ object APIFactory {
         .build()
 
 
-    fun retrofit(): Retrofit = Retrofit.Builder()
+    private fun retrofit(): Retrofit = Retrofit.Builder()
         .client(tmdbClient)
         .baseUrl(API_BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())

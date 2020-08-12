@@ -11,4 +11,8 @@ fun getFormattedReleaseDate(date: Date?): String {
         ""
 }
 
-fun getFormattedPosterPath(posterPath: String): String = APIFactory.API_IMAGE_PATH + posterPath
+fun getFormattedPosterPath(posterPath: String): String {
+    return if (posterPath.isEmpty())
+        posterPath
+    else APIFactory.API_IMAGE_PATH + posterPath
+}

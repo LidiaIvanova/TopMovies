@@ -12,8 +12,12 @@ fun ImageView.loadImageSrc(url: String?) {
 }
 
 fun ImageView.loadImage(url: String) {
-    Glide.with(context)
-        .load(url)
-        .placeholder(R.drawable.logo)
-        .into(this)
+    if (url.isNotEmpty()) {
+        Glide.with(context)
+            .load(url)
+            .placeholder(R.drawable.logo)
+            .into(this)
+    } else {
+        setImageResource(R.drawable.logo)
+    }
 }

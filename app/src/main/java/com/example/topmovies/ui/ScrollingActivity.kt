@@ -1,22 +1,16 @@
 package com.example.topmovies.ui
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.topmovies.R
 import com.example.topmovies.viewmodel.MoviesViewModel
-
-import androidx.lifecycle.ViewModelProvider
-import com.example.topmovies.viewmodel.MoviesAdapter
 import kotlinx.android.synthetic.main.activity_scrolling.*
 import kotlinx.android.synthetic.main.content_scrolling.*
 
-import com.example.topmovies.model.Result
-import kotlinx.android.synthetic.main.empty_list_placeholder.*
 
 class ScrollingActivity : AppCompatActivity() {
 
@@ -28,29 +22,26 @@ class ScrollingActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
 
-        val adapter = MoviesAdapter {
-            viewModel.onMovieScheduleButtonClick()
-        }
-        moviesRecyclerView.adapter = adapter
+        moviesRecyclerView.adapter = viewModel.getMoviePagedAdapter()
 
-        subscribeUI(adapter)
+        subscribeUI()
 
         setSupportActionBar(toolbar)
         toolbar_layout.title = title
     }
 
-    private fun subscribeUI(adapter: MoviesAdapter) {
-        viewModel.getMovies().observe(this, Observer { result ->
-            when (result.status) {
-                Result.Status.SUCCESS -> {
+    private fun subscribeUI() {
+        viewModel.getState().observe(this, Observer {
+            when (it) {
+                is MoviesViewModel.State.Success -> {
                     activityScrollingProgressBar.visibility = View.GONE
-                    result.data?.let { adapter.submitList(it) }
                 }
-                Result.Status.LOADING -> activityScrollingProgressBar.visibility = View.VISIBLE
-                Result.Status.ERROR -> {
+                is MoviesViewModel.State.Loading -> {
+                    activityScrollingProgressBar.visibility = View.VISIBLE
+                }
+                is MoviesViewModel.State.Error -> {
                     activityScrollingProgressBar.visibility = View.GONE
-                    emptyListPlaceholder.visibility = View.VISIBLE
-                    result.message?.let { showMessage(it) }
+                    showMessage(it.message)
                 }
             }
         })

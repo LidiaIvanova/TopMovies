@@ -9,5 +9,6 @@ data class Movie(
     val voteAverage: Int,
     val title: String,
     val releaseDate: Date?,
-    val overview: String
+    val overview: String,
+    val page: Int
 )

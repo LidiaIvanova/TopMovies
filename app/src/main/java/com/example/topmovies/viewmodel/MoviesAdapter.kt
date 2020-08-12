@@ -3,14 +3,14 @@ package com.example.topmovies.viewmodel
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.topmovies.databinding.ListItemMovieBinding
 import com.example.topmovies.model.domain.Movie
 
 class MoviesAdapter(val onClick: (position: Int) -> Unit) :
-    ListAdapter<Movie, MoviesAdapter.ViewHolder>(DiffCallback()) {
+    PagedListAdapter<Movie, MoviesAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -24,7 +24,9 @@ class MoviesAdapter(val onClick: (position: Int) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = getItem(position)
-        holder.bind(View.OnClickListener { onClick(position) }, movie)
+        movie?.let {
+            holder.bind(View.OnClickListener { onClick(position) }, it)
+        }
     }
 
     class ViewHolder(
